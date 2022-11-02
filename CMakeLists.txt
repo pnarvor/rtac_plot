@@ -32,11 +32,25 @@ if(NOT TARGET rtac_display)
 endif()
 
 list(APPEND rtac_plot_headers
+    include/rtac_plot/Canvas.h
+    include/rtac_plot/PlotView2D.h
     include/rtac_plot/PlotSurface.h
+
+    include/rtac_plot/CanvasEventHandler.h
+    include/rtac_plot/PlotWindow.h
 )
 
 add_library(rtac_plot SHARED
+    src/Canvas.cpp
+    src/PlotView2D.cpp
     src/PlotSurface.cpp
+
+    src/CanvasEventHandler.cpp
+    src/PlotWindow.cpp
+)
+target_include_directories(rtac_plot PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
 )
 target_link_libraries(rtac_plot PUBLIC
     rtac_display

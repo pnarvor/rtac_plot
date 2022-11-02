@@ -27,5 +27,19 @@
 #include <rtac_plot/PlotSurface.h>
 
 namespace rtac { namespace plot {
+
+PlotSurface::PlotSurface(display::GLContext::Ptr context, const Extent& extent) :
+    DrawingSurface(context),
+    view_(PlotView2D::Create(extent)),
+    extent_(extent)
+{}
+
+PlotSurface::Ptr PlotSurface::Create(display::GLContext::Ptr context,
+                                     const Extent& extent)
+{
+    return Ptr(new PlotSurface(context, extent));
+}
+
+
 } //namespace plot
 } //namespace rtac

@@ -27,9 +27,42 @@
 #ifndef _DEF_RTAC_PLOT_PLOT_SURFACE_H_
 #define _DEF_RTAC_PLOT_PLOT_SURFACE_H_
 
-#include <rtac_display/DrawSurface.h>
+#include <memory>
+
+#include <rtac_base/types/Bounds.h>
+#include <rtac_display/DrawingSurface.h>
+
+#include <rtac_plot/PlotView2D.h>
 
 namespace rtac { namespace plot {
+
+class PlotSurface : public rtac::display::DrawingSurface
+{
+    public:
+
+    using Ptr      = std::shared_ptr<PlotSurface>;
+    using ConstPtr = std::shared_ptr<const PlotSurface>;
+
+    using Extent = PlotView2D::Extent;
+
+    protected:
+    
+    PlotView2D::Ptr view_;
+    Extent extent_;          // this is the max extent of display area, max zoom
+    Extent displayedExtent_;
+
+    PlotSurface(display::GLContext::Ptr context,
+                const Extent& extent);
+
+    public:
+    
+    static Ptr Create(display::GLContext::Ptr context,
+                      const Extent& extent = Extent{{{-1.0f,1.0f},
+                                                     {-1.0f,1.0f}}});
+
+    PlotView2D::ConstPtr view() const { return view_; }
+};
+
 } //namespace plot
 } //namespace rtac
 

@@ -23,6 +23,8 @@
 # DEALINGS IN THE SOFTWARE.
 
 list(APPEND test_files
+    src/plot_window01.cpp
+    src/plot_surface01.cpp
 )
 
 foreach(filename ${test_files})
